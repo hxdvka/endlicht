@@ -113,7 +113,7 @@ void loop() {
     if (requestCmd()) {
       tmp_Req = millis() + 1500;
     } else {
-      tmp_Req = millis() + 60000;
+      tmp_Req = millis() + 300000;
     }
   }
   if (!mQ->hasRoom() && tmp_Cmd > millis()) {
@@ -139,7 +139,9 @@ bool requestCmd() {
   String Delay = httpGETRequest(SV_RNHOST, req_delay, SV_PORT);
   Delay.remove(0, 1);
   RGB.remove(0, 1);
-
+  if(!isDigit(RGB[0])){
+    return 0;
+  }
   //parsing response like, stupidly, bc why not
   uint R = RGB.toInt();
   RGB.remove(0, RGB.indexOf(",") + 1);
