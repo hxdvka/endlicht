@@ -105,7 +105,7 @@ void loop() {
   // Q not full -> lf command
   // Cmd running && Q full -> idle until cmd end
   // protothread? mebby??
-
+// TODO reorganize and legibilize SM
   if (!mQ->isEmpty() && millis() > tmp_Cmd) {
     tmp_Cmd = millis() + runCmd();
   }
@@ -118,6 +118,9 @@ void loop() {
   }
   if (!mQ->hasRoom() && tmp_Cmd > millis()) {
     delay(tmp_Cmd - millis());
+  }
+  if(mQ->isEmpty() && millis() > tmp_Cmd){
+    delay(tmp_Req - millis());
   }
 }
 
